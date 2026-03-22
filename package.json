@@ -1,0 +1,23 @@
+{
+  "name": "mdlink-check",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "mdlink-check": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "chalk": "*",
+    "commander": "*",
+    "glob": "*"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "typescript": "*",
+    "vitest": "*"
+  }
+}
