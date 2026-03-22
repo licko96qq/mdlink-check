@@ -481,4 +481,32 @@ gh pr merge --squash --delete-branch
 
 ---
 
+## 完成总结
+
+整个流程已走完，以下是实际演示过的每一步：
+
+| 步骤 | 做了什么 | 结果 |
+|------|---------|------|
+| 安装 gh CLI | `brew install gh` | v2.88.1 |
+| GitHub 登录 | `gh auth login --web` | 已认证 licko96qq |
+| 添加 README | 项目说明 + 使用方法 + 开发指南 | `README.md` |
+| 添加 CI | GitHub Actions 在 Node 18/20/22 上跑 build+test | `.github/workflows/ci.yml` |
+| 创建远程仓库 | `gh repo create --public` | https://github.com/licko96qq/mdlink-check |
+| 推送代码 | `git push -u origin main` | main 分支 CI 通过 |
+| 分支开发演示 | `feat/json-output` 分支添加 `--json` 功能 | 代码 + 测试通过 |
+| PR 工作流 | 创建 PR → CI 三版本全绿 → squash merge | PR #1 已合并 |
+| 教学文档 | 9 章完整指南写入 `PROJECT-MANAGEMENT-GUIDE.md` | 500+ 行 |
+
+教学文档涵盖：Git 基础、Commit 规范、远程仓库、分支策略、PR 工作流、CI/CD、可维护性清单、版本发布、操作速查表 — 全部以 `mdlink-check` 真实操作为例。
+
+### 关键收获
+
+1. **代码只存在本地等于不存在** — 推送到 GitHub 才有真正的备份
+2. **CI 是自动守门员** — 每次 push/PR 自动跑 build + test，防止引入 bug
+3. **分支 + PR 是安全网** — 在 feature 分支开发，通过 PR 审查后合并，main 始终稳定
+4. **小粒度 commit + 规范命名** — 出问题时能精准回退，`git log` 就是最好的变更历史
+5. **README + 测试 = 活文档** — 告诉未来的自己（和别人）这个项目是什么、怎么用
+
+---
+
 *最后更新：2026-03-22*

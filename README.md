@@ -87,6 +87,12 @@ mdlink-check/
 - **Testing**: vitest
 - **CI**: GitHub Actions
 
+## Documentation
+
+- [README-中文.md](./README-中文.md) — Chinese README
+- [PLAN.md](./PLAN.md) — Architecture decisions and implementation log
+- [PROJECT-MANAGEMENT-GUIDE.md](./PROJECT-MANAGEMENT-GUIDE.md) — Project management tutorial (Chinese)
+
 ## License
 
 MIT
