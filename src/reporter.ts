@@ -54,3 +54,7 @@ export function formatResults(results: CheckResult[], verbose: boolean): string 
 
   return lines.join('\n');
 }
+
+export function formatResultsJson(results: CheckResult[]): string {
+  return JSON.stringify(results, null, 2);
+}

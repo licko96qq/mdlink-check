@@ -6,12 +6,13 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { checkLinks } from './checker.js';
 import { extractLinks } from './parser.js';
-import { formatResults } from './reporter.js';
+import { formatResults, formatResultsJson } from './reporter.js';
 
 interface CliOptions {
   timeout: number;
   verbose: boolean;
   concurrency: number;
+  json: boolean;
 }
 
 function toPositiveInteger(value: string, optionName: string): number {
@@ -50,7 +51,8 @@ export async function runCli(argv = process.argv): Promise<number> {
     .argument('<patterns...>', 'Glob patterns for markdown files')
     .option('--timeout <ms>', 'Request timeout in milliseconds', '5000')
     .option('--verbose', 'Show detailed check results', false)
-    .option('--concurrency <n>', 'Concurrent requests', '5');
+    .option('--concurrency <n>', 'Concurrent requests', '5')
+    .option('--json', 'Output results as JSON', false);
 
   let patterns: string[];
   let options: CliOptions;
@@ -63,12 +65,14 @@ export async function runCli(argv = process.argv): Promise<number> {
       timeout: string;
       verbose: boolean;
       concurrency: string;
+      json: boolean;
     }>();
 
     options = {
       timeout: toPositiveInteger(parsedOptions.timeout, '--timeout'),
       verbose: parsedOptions.verbose,
       concurrency: toPositiveInteger(parsedOptions.concurrency, '--concurrency'),
+      json: parsedOptions.json,
     };
   } catch (error) {
     if (error instanceof Error) {
@@ -122,7 +126,11 @@ export async function runCli(argv = process.argv): Promise<number> {
     concurrency: options.concurrency,
   });
 
-  console.log(formatResults(results, options.verbose));
+  if (options.json) {
+    console.log(formatResultsJson(results));
+  } else {
+    console.log(formatResults(results, options.verbose));
+  }
 
   return hasFailures(results) ? 1 : 0;
 }
